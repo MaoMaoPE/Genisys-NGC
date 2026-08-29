@@ -116,6 +116,10 @@ class SessionManager{
 		$time = microtime(true);
 		foreach($this->sessions as $session){
 			$session->update($time);
+
+			if (($this->ticks % 40) == 0) {
+				$this->streamPing($session);
+			}
 		}
 
 		foreach($this->ipSec as $address => $count){
@@ -211,6 +215,14 @@ class SessionManager{
 
 	public function streamRaw($address, $port, $payload){
 		$buffer = chr(RakLib::PACKET_RAW) . chr(strlen($address)) . $address . Binary::writeShort($port) . $payload;
+		$this->server->pushThreadToMainPacket($buffer);
+	}
+
+	protected function streamPing(Session $session){
+		$identifier = $session->getAddress() . ":" . $session->getPort();
+		$ping = $session->getPing();
+
+		$buffer = chr(RakLib::PACKET_PING) . chr(strlen($identifier)) . $identifier . chr(strlen($ping)) . $ping;
 		$this->server->pushThreadToMainPacket($buffer);
 	}
 

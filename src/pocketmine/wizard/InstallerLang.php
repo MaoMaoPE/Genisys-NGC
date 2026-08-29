@@ -29,10 +29,7 @@ class InstallerLang{
 		"zho" => "繁體中文",
         "bra" => "Português (Brazil)",
 		"jpn" => "日本語",
-		"rus" => "Русский",
-		"ita" => "Italiano",
 		"kor" => "한국어",
-		"deu" => "Deutsch"
 	];
 	private $texts = [];
 	private $lang;

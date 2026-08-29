@@ -289,6 +289,16 @@ class Player extends Human implements CommandSender, InventoryHolder, ChunkLoade
 	/** @var Item[] */
 	protected $personalCreativeItems = [];
 
+	protected $ping = 0;
+
+	public function getPing(){
+		return $this->ping;
+	}
+
+	public function setPing($ping){
+		$this->ping = $ping;
+	}
+
 	public function linkHookToPlayer(FishingHook $entity){
 		if($entity->isAlive()){
 			$this->setFishingHook($entity);
